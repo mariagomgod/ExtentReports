@@ -7,7 +7,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class ExtentReportDemo {
+public class ExtentReportDemoTest {
+
+    ExtentReports extent;
 
     @BeforeTest
     public void config() {
@@ -18,15 +20,19 @@ public class ExtentReportDemo {
         reporter.config().setReportName("Web Automation Results");
         reporter.config().setDocumentTitle("Test Results");
 
-        ExtentReports report = new ExtentReports();
+        extent = new ExtentReports();
+        extent.attachReporter(reporter);
+        extent.setSystemInfo("Tester", "Rahul Shetty");
     }
 
     @Test
     public void initialDemo() {
 
+        extent.createTest("Initial Demo");
         WebDriver driver = new ChromeDriver();
         driver.get("https://rahulshettyacademy.com/");
         System.out.println(driver.getTitle());
+        extent.flush();
 
     }
 }
